@@ -30,8 +30,8 @@ ColumnLayout {
 		}
 	}
 
-
-
+	//--- layout
+	width: 240 * units.devicePixelRatio // Default desktop widget width
 	spacing: 10 * units.devicePixelRatio
 
 	MonitorGraph {
