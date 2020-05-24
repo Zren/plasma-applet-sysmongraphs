@@ -12,7 +12,7 @@ ColumnLayout {
 		id: tickTimer
 		running: true
 		repeat: true
-		interval: 1000
+		interval: plasmoid.configuration.updateInterval
 		// MonitorGraph connects to this and calls MonitorGraph.tick()
 	}
 
@@ -20,7 +20,7 @@ ColumnLayout {
 		id: sysMonDataSource
 
 		engine: "systemmonitor"
-		interval: 1000
+		interval: plasmoid.configuration.updateInterval
 		onSourceAdded: {
 			console.log('onSourceAdded', source)
 		}
