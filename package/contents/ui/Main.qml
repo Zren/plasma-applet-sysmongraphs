@@ -22,7 +22,7 @@ ColumnLayout {
 		engine: "systemmonitor"
 		interval: plasmoid.configuration.updateInterval
 		onSourceAdded: {
-			console.log('onSourceAdded', source)
+			// console.log('onSourceAdded', source)
 		}
 		onSourceRemoved: {
 			// console.log('onSourceRemoved', source)
