@@ -13,6 +13,7 @@ Item {
 
 	//--- settings
 	property string label: 'Label'
+	property string shortLabel: label // Used in "large" state
 	property string sublabel: currentValue
 	property var accentColors: [PlasmaCore.ColorScope.highlightColor]
 	property color borderColor: accentColors[accentColors.length - 1]
@@ -118,16 +119,16 @@ Item {
 		canvas.requestPaint()
 	}
 
-	RowLayout {
+	GridLayout {
 		id: graphLayout
 		anchors.fill: parent
-		spacing: units.smallSpacing
+		columnSpacing: units.smallSpacing
+		rowSpacing: 0 // Labels have their own top/bottom padding
 
 		Canvas {
 			id: canvas
 			implicitWidth: monitorGraph.graphWidth * units.devicePixelRatio
 			implicitHeight: monitorGraph.graphHeight * units.devicePixelRatio
-			Layout.fillHeight: true
 
 			onPaint: {
 				var ctx = getContext("2d")
@@ -190,33 +191,150 @@ Item {
 			}
 		}
 
-		ColumnLayout {
-			spacing: 0
-			Layout.alignment: Qt.AlignTop | Qt.AlignLeft
-
 			PlasmaComponents3.Label {
+				id: labelItem
 				text: monitorGraph.label
 				font.pointSize: -1
 				font.pixelSize: 16 * units.devicePixelRatio
 				font.weight: Font.Bold
-				Layout.fillWidth: true
 				Layout.preferredHeight: paintedHeight
 				elide: Text.ElideRight
+
+				// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
 			}
 
 			PlasmaComponents3.Label {
-
+				id: sublabelItem
 				text: monitorGraph.sublabel
 				font.pointSize: -1
 				font.pixelSize: 12 * units.devicePixelRatio
 				horizontalAlignment: Text.AlignLeft
 				opacity: 0.8
-				Layout.fillWidth: true
-				Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+				verticalAlignment: Text.AlignTop
 				Layout.preferredHeight: paintedHeight
 				elide: Text.ElideRight
-			}
 
-		}
+				// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
+			}
 	}
+
+	state: "tiny"
+	states: [
+		State {
+			name: "tiny"
+			PropertyChanges {
+				target: graphLayout
+				columns: 2
+			}
+			PropertyChanges {
+				target: labelItem
+				Layout.column: 1
+				Layout.row: 0
+				Layout.fillWidth: true
+			}
+			PropertyChanges {
+				target: sublabelItem
+				Layout.column: 1
+				Layout.row: 1
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+			}
+			PropertyChanges {
+				target: canvas
+				Layout.column: 0
+				Layout.row: 0
+				Layout.rowSpan: 2
+				Layout.fillHeight: true
+			}
+		}
+		, State {
+			name: "small"
+			PropertyChanges {
+				target: graphLayout
+				columns: 2
+			}
+			PropertyChanges {
+				target: canvas
+				Layout.column: 0
+				Layout.row: 1
+				Layout.columnSpan: 2
+				Layout.rowSpan: 1
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+			}
+			PropertyChanges {
+				target: sublabelItem
+				Layout.column: 1
+				Layout.row: 0
+				Layout.fillWidth: true
+			}
+			PropertyChanges {
+				target: labelItem
+				Layout.column: 0
+				Layout.row: 0
+				Layout.fillWidth: false
+			}
+		}
+		, State {
+			name: "medium"
+			PropertyChanges {
+				target: graphLayout
+				columns: 2
+			}
+			PropertyChanges {
+				target: canvas
+				Layout.column: 0
+				Layout.row: 1
+				Layout.columnSpan: 2
+				Layout.rowSpan: 1
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+			}
+			PropertyChanges {
+				target: sublabelItem
+				Layout.column: 1
+				Layout.row: 0
+				Layout.fillWidth: true
+				font.pixelSize: 14 * units.devicePixelRatio
+			}
+			PropertyChanges {
+				target: labelItem
+				Layout.column: 0
+				Layout.row: 0
+				Layout.fillWidth: false
+				font.pixelSize: 18 * units.devicePixelRatio
+			}
+		}
+		, State {
+			name: "large"
+			PropertyChanges {
+				target: graphLayout
+				columns: 2
+			}
+			PropertyChanges {
+				target: canvas
+				Layout.column: 0
+				Layout.row: 1
+				Layout.columnSpan: 2
+				Layout.rowSpan: 1
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+			}
+			PropertyChanges {
+				target: sublabelItem
+				Layout.column: 1
+				Layout.row: 0
+				Layout.fillWidth: true
+				font.pixelSize: 18 * units.devicePixelRatio
+			}
+			PropertyChanges {
+				target: labelItem
+				Layout.column: 0
+				Layout.row: 0
+				Layout.fillWidth: false
+				font.pixelSize: 36 * units.devicePixelRatio
+				text: monitorGraph.shortLabel
+			}
+		}
+	]
 }

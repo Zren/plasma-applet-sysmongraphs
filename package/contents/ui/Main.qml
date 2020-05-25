@@ -34,9 +34,24 @@ ColumnLayout {
 	width: 240 * units.devicePixelRatio // Default desktop widget width
 	spacing: 10 * units.devicePixelRatio
 
+	property int rows: children.length
+	property string graphState: {
+		var rowHeight = Math.floor((height - (rows-1)*spacing) / rows)
+		if (rowHeight >= 150 * units.devicePixelRatio) {
+			return "large"
+		} else if (rowHeight >= 100 * units.devicePixelRatio) {
+			return "medium"
+		} else if (rowHeight >= 60 * units.devicePixelRatio) {
+			return "small"
+		} else {
+			return "tiny"
+		}
+	}
+
 	MonitorGraph {
 		id: cpuGraph
 		dataSource: sysMonDataSource
+		state: graphState
 		sensorNames: ['cpu/system/TotalLoad']
 		label: i18n("CPU")
 		sublabel: i18n("%1%", firstCurrentValue)
@@ -46,9 +61,10 @@ ColumnLayout {
 	MonitorGraph {
 		id: memGraph
 		dataSource: sysMonDataSource
+		state: graphState
 		sensorNames: ['mem/physical/application']
 		label: i18n("Memory")
-		// sublabel: i18n("8.6/15.9GB (54%)")
+		shortLabel: i18n("RAM")
 		accentColors: ["#8B12AE"]
 
 		// sensor reports in KB, so *1024 to get Bytes
@@ -69,6 +85,8 @@ ColumnLayout {
 				return 0
 			}
 		}
+
+		// 8.6/15.9GiB (54%)
 		sublabel: i18n("%1/%2 (%3%)", humanValue, humanMax, percent)
 
 	}
@@ -76,7 +94,10 @@ ColumnLayout {
 	MonitorGraph {
 		id: diskGraph
 		dataSource: sysMonDataSource
-		property string diskKey: 'sda_(8:0)'
+		state: graphState
+		property string diskName: 'sda'
+		property string diskIndex: '8:0'
+		property string diskKey: '' + diskName + '_(' + diskIndex + ')' // sda_(8:0)
 		sensorNames: [
 			'disk/' + diskKey + '/Rate/rblk',
 			'disk/' + diskKey + '/Rate/wblk',
@@ -85,7 +106,8 @@ ColumnLayout {
 			"#4DA60C",
 			"#4DA60C",
 		]
-		label: i18n("Disk (sda)")
+		label: i18n("Disk (%1)", diskName)
+		shortLabel: i18n("Disk")
 		function formatValue(value) {
 			var str = KCoreAddons.Format.formatByteSize(value * 1024)
 			// str = str.replace(' ', '')
@@ -104,6 +126,7 @@ ColumnLayout {
 	MonitorGraph {
 		id: netGraph
 		dataSource: sysMonDataSource
+		state: graphState
 		property string interfaceName: 'enp3s0' // Ethernet
 		sensorNames: [
 			'network/interfaces/' + interfaceName + '/transmitter/data', // Upload
@@ -114,7 +137,9 @@ ColumnLayout {
 			"#D66502",
 		]
 
+
 		label: i18n("Network")
+		shortLabel: i18n("Net")
 		function formatValue(value) {
 			var str = KCoreAddons.Format.formatByteSize(value * 1024)
 			// str = str.replace(' ', '')
