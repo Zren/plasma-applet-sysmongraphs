@@ -220,6 +220,9 @@ Item {
 
 	state: "tiny"
 	states: [
+		// "small" places labels to the right of the graph
+		// [   ] Label
+		// [   ] Sublabel
 		State {
 			name: "tiny"
 			PropertyChanges {
@@ -247,6 +250,13 @@ Item {
 				Layout.fillHeight: true
 			}
 		}
+
+
+
+		// "small", "medium", "large" place labels above the graph
+		// Label Sublabel
+		// [            ]
+		// [            ]
 		, State {
 			name: "small"
 			PropertyChanges {
