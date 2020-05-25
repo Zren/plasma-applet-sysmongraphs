@@ -191,31 +191,31 @@ Item {
 			}
 		}
 
-			PlasmaComponents3.Label {
-				id: labelItem
-				text: monitorGraph.label
-				font.pointSize: -1
-				font.pixelSize: 16 * units.devicePixelRatio
-				font.weight: Font.Bold
-				Layout.preferredHeight: paintedHeight
-				elide: Text.ElideRight
+		PlasmaComponents3.Label {
+			id: labelItem
+			text: monitorGraph.label
+			font.pointSize: -1
+			font.pixelSize: 16 * units.devicePixelRatio
+			font.weight: Font.Bold
+			Layout.preferredHeight: paintedHeight
+			elide: Text.ElideRight
 
-				// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
-			}
+			// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
+		}
 
-			PlasmaComponents3.Label {
-				id: sublabelItem
-				text: monitorGraph.sublabel
-				font.pointSize: -1
-				font.pixelSize: 12 * units.devicePixelRatio
-				horizontalAlignment: Text.AlignLeft
-				opacity: 0.8
-				verticalAlignment: Text.AlignTop
-				Layout.preferredHeight: paintedHeight
-				elide: Text.ElideRight
+		PlasmaComponents3.Label {
+			id: sublabelItem
+			text: monitorGraph.sublabel
+			font.pointSize: -1
+			font.pixelSize: 12 * units.devicePixelRatio
+			horizontalAlignment: Text.AlignLeft
+			opacity: 0.8
+			verticalAlignment: Text.AlignTop
+			Layout.preferredHeight: paintedHeight
+			elide: Text.ElideRight
 
-				// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
-			}
+			// Rectangle { border.color: "#f00"; border.width: 1; anchors.fill: parent; color: "transparent" }
+		}
 	}
 
 	state: "tiny"
