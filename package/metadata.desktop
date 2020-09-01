@@ -17,6 +17,5 @@ X-KDE-PluginInfo-Name=com.github.zren.sysmongraphs
 X-KDE-PluginInfo-Version=1.0
 X-KDE-PluginInfo-Website=https://github.com/Zren/...
 X-KDE-PluginInfo-Category=System Information
-X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL-2.0+
 X-KDE-FormFactors=tablet,mediacenter,desktop
