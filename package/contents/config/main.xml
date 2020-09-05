@@ -4,8 +4,8 @@
 
 	<group name="General">
 		<entry name="updateInterval" type="Int">
-				<label>The interval in milliseconds to update the data shown.</label>
-				<default>1000</default>
+			<label>The interval in milliseconds to update the data shown.</label>
+			<default>1000</default>
 		</entry>
 	</group>
 
