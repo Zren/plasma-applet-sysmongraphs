@@ -46,6 +46,27 @@ QtObject {
 		}
 	}
 
+	Component.onCompleted: {
+		if (dataSource) {
+			var changed = false
+			for (var i = 0; i < dataSource.sources.length; i++) {
+				var source = dataSource.sources[i]
+				var match = source.match(/^network\/interfaces\/(\w+)\//)
+				if (match) {
+					var networkName = match[1]
+					if (networkListDetector.networkSensorList.indexOf(networkName) === -1) {
+						// Add if not seen before
+						networkListDetector.networkSensorList.push(networkName)
+						changed = true
+					}
+				}
+			}
+			if (changed) {
+				networkListDetector.networkSensorListChanged()
+			}
+		}
+	}
+
 	function updateNetworkModel() {
 		// [
 		// 	{
