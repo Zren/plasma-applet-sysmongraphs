@@ -30,6 +30,26 @@ ColumnLayout {
 		}
 	}
 
+	NetworkListDetector {
+		id: networkListDetector
+		dataSource: sysMonDataSource
+	}
+
+	QtObject {
+		id: config
+
+		property string netInterfaceName: {
+			var networkName = plasmoid.configuration.netInterfaceName
+			if (networkName && networkListDetector.networkSensorList.indexOf(networkName) !== -1) {
+				return networkName
+			} else if (networkListDetector.networkModel.length >= 1) {
+				return networkListDetector.networkModel[0].interfaceName
+			} else {
+				return ''
+			}
+		}
+	}
+
 	//--- layout
 	width: 240 * units.devicePixelRatio // Default desktop widget width
 	spacing: 10 * units.devicePixelRatio
@@ -127,7 +147,7 @@ ColumnLayout {
 		id: netGraph
 		dataSource: sysMonDataSource
 		state: graphState
-		property string interfaceName: 'enp3s0' // Ethernet
+		property string interfaceName: config.netInterfaceName
 		sensorNames: [
 			'network/interfaces/' + interfaceName + '/transmitter/data', // Upload
 			'network/interfaces/' + interfaceName + '/receiver/data', // Download

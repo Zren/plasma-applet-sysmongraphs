@@ -25,6 +25,9 @@
 		<entry name="netDownloadColor" type="Color">
 			<default>#D66502</default>
 		</entry>
+		<entry name="netInterfaceName" type="String">
+			<default></default>
+		</entry>
 	</group>
 
 </kcfg>
