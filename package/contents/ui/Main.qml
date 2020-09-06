@@ -168,7 +168,7 @@ ColumnLayout {
 		sublabel: {
 			var upSpeed = isNaN(currentValues[0]) ? 0 : currentValues[0]
 			var downSpeed = isNaN(currentValues[1]) ? 0 : currentValues[1]
-			return i18n("<font color=\"%1\">S:</font> %2 <font color=\"%3\">R:</font> %4", 
+			return i18n("<font color=\"%1\">U:</font> %2 <font color=\"%3\">D:</font> %4", 
 				accentColors[0], formatValue(upSpeed),
 				accentColors[1], formatValue(downSpeed)
 			)
