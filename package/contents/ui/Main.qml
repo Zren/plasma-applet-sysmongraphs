@@ -55,7 +55,7 @@ ColumnLayout {
 		sensorNames: ['cpu/system/TotalLoad']
 		label: i18n("CPU")
 		sublabel: i18n("%1%", firstCurrentValue)
-		accentColors: ["#1174AD"]
+		accentColors: [plasmoid.configuration.cpuAccentColor]
 	}
 
 	MonitorGraph {
@@ -65,7 +65,7 @@ ColumnLayout {
 		sensorNames: ['mem/physical/application']
 		label: i18n("Memory")
 		shortLabel: i18n("RAM")
-		accentColors: ["#8B12AE"]
+		accentColors: [plasmoid.configuration.memAccentColor]
 
 		// sensor reports in KB, so *1024 to get Bytes
 		property string humanValue: {
@@ -103,8 +103,8 @@ ColumnLayout {
 			'disk/' + diskKey + '/Rate/wblk',
 		]
 		accentColors: [
-			"#4DA60C",
-			"#4DA60C",
+			plasmoid.configuration.diskReadColor,
+			plasmoid.configuration.diskWriteColor,
 		]
 		label: i18n("Disk (%1)", diskName)
 		shortLabel: i18n("Disk")
@@ -133,8 +133,8 @@ ColumnLayout {
 			'network/interfaces/' + interfaceName + '/receiver/data', // Download
 		]
 		accentColors: [
-			"#EDA582",
-			"#D66502",
+			plasmoid.configuration.netUploadColor,
+			plasmoid.configuration.netDownloadColor,
 		]
 
 

@@ -31,5 +31,39 @@ ConfigPage {
 				return parseFloat(text)
 			}
 		}
+
+		Kirigami.Separator {
+			Kirigami.FormData.isSection: true
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("CPU") + ':'
+			configKey: 'cpuAccentColor'
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("Memory") + ':'
+			configKey: 'memAccentColor'
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("Disk Read") + ':'
+			configKey: 'diskReadColor'
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("Disk Write") + ':'
+			configKey: 'diskWriteColor'
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("Network Upload") + ':'
+			configKey: 'netUploadColor'
+		}
+
+		ConfigColor2 {
+			Kirigami.FormData.label: i18n("Network Download") + ':'
+			configKey: 'netDownloadColor'
+		}
 	}
 }

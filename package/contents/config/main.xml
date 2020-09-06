@@ -7,6 +7,24 @@
 			<label>The interval in milliseconds to update the data shown.</label>
 			<default>1000</default>
 		</entry>
+		<entry name="cpuAccentColor" type="Color">
+			<default>#1174AD</default>
+		</entry>
+		<entry name="memAccentColor" type="Color">
+			<default>#8B12AE</default>
+		</entry>
+		<entry name="diskReadColor" type="Color">
+			<default>#4DA60C</default>
+		</entry>
+		<entry name="diskWriteColor" type="Color">
+			<default>#4DA60C</default>
+		</entry>
+		<entry name="netUploadColor" type="Color">
+			<default>#EDA582</default>
+		</entry>
+		<entry name="netDownloadColor" type="Color">
+			<default>#D66502</default>
+		</entry>
 	</group>
 
 </kcfg>
