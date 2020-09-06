@@ -98,7 +98,7 @@ Item {
 
 	function connectSensor(sensorName) {
 		if (dataSource.connectedSources.indexOf(sensorName) == -1) {
-			console.log('connectSource', sensorName)
+			// console.log('connectSource', sensorName)
 			dataSource.connectSource(sensorName)
 		}
 	}
