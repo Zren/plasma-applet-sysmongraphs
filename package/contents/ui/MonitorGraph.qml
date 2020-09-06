@@ -33,7 +33,7 @@ Item {
 	property var currentValues: []
 	Repeater {
 		id: sensorObjRepeater
-		model: sensorNames.length
+		model: sensorNames
 		Item {
 			id: sensorObj
 			readonly property string sensorName: monitorGraph.sensorNames[index]
@@ -71,15 +71,22 @@ Item {
 
 	//---
 	Component.onCompleted: {
+		
+	}
 
+	onSensorNamesChanged: {
+		for (var i = 0; i < sensorNames; i++) {
+			var sensorName = sensorNames[sensorIndex]
+			monitorGraph.connectSensor(sensorName)
+		}
+		sensorObjRepeater.modelChanged()
 	}
 
 	Connections {
 		target: dataSource
 		onSourceAdded: {
-			for (var i = 0; i < sensorNames; i++) {
-				var sensorName = sensorNames[sensorIndex]
-				monitorGraph.connectSensor(sensorName)
+			if (sensorNames.indexOf(source) >= 0) {
+				monitorGraph.connectSensor(source)
 			}
 		}
 	}
