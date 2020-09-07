@@ -67,9 +67,10 @@ ConfigPage {
 			configKey: 'netDownloadColor'
 		}
 
-		ComboBox {
+		ConfigComboBox2 {
 			id: netInterfaceName
 			Kirigami.FormData.label: i18n("Network") + ':'
+			configKey: 'netInterfaceName'
 
 			PlasmaCore.DataSource {
 				id: sysMonDataSource
@@ -81,41 +82,41 @@ ConfigPage {
 			NetworkListDetector {
 				id: networkListDetector
 				dataSource: sysMonDataSource
-				onNetworkModelChanged: netInterfaceName.updateModel()
+				onNetworkModelChanged: netInterfaceName.populate()
 			}
-			Component.onCompleted: netInterfaceName.updateModel()
+			Component.onCompleted: netInterfaceName.populate()
 
+			populated: false
 			model: []
-			textRole: "label"
+			textRole: "labelWithId"
+			valueRole2: "interfaceName"
 
-			function updateModel() {
+			onPopulate: {
 				var list = []
 
 				// Add Default entry
 				// An empty string value represents the default network.
+				var defaultNetworkEntry = {
+					"label": i18n("Default"),
+					"icon": "",
+					"interfaceName": "",
+					"labelWithId": i18n("Default"),
+				}
 				if (networkListDetector.networkModel.length >= 1) {
 					var defaultNetwork = networkListDetector.networkModel[0]
-					var defaultInterfaceName = defaultNetwork.interfaceName
-					list.push({
-						"label": i18n("Default (%1)", defaultNetwork.interfaceName),
-						"icon": defaultNetwork.icon,
-						"interfaceName": "",
-					})
-				} else {
-					list.push({
-						"label": i18n("Default"),
-						"icon": "",
-						"interfaceName": "",
-					})
+					defaultNetworkEntry.icon = defaultNetwork.icon
+					defaultNetworkEntry.labelWithId = i18nc("NetworkLabel (InterfaceId)", "%1 (%2)", defaultNetworkEntry.label, defaultNetwork.interfaceName)
 				}
+				list.push(defaultNetworkEntry)
 
 				for (var i = 0; i < networkListDetector.networkModel.length; i++) {
 					var network = networkListDetector.networkModel[i]
-					network.label = i18nc("NetworkLabel (InterfaceId)", "%1 (%2)", network.label, network.interfaceName)
+					network.labelWithId = i18nc("NetworkLabel (InterfaceId)", "%1 (%2)", network.label, network.interfaceName)
 					list.push(network)
 				}
 
 				netInterfaceName.model = list
+				populated = true
 				// console.log('NetworkSelector.model', JSON.stringify(netInterfaceName.model, null, '  '))
 			}
 		}
